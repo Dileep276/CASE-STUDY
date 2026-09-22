@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Class Management System</title>
+
+    <link rel="stylesheet" href="class.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="logo">
+            <div class="logo-icon">CM</div>
+
+            <div>
+                <h2>Class Management</h2>
+                <span>Multi-Agent Management System</span>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <span class="system-status">
+                <span class="status-dot"></span>
+                All Agents Online
+            </span>
+
+            <div class="profile">
+                <div class="profile-circle">AD</div>
+                <div>
+                    <strong>Admin</strong>
+                    <small>Administrator</small>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="menu-title">MAIN MENU</div>
+
+        <button class="menu-item active" onclick="showSection('dashboard')">
+            <span>📊</span>
+            Dashboard
+        </button>
+
+        <button class="menu-item" onclick="showSection('students')">
+            <span>👨‍🎓</span>
+            Students
+        </button>
+
+        <button class="menu-item" onclick="showSection('attendance')">
+            <span>📅</span>
+            Attendance
+        </button>
+
+        <button class="menu-item" onclick="showSection('fees')">
+            <span>💰</span>
+            Fees
+        </button>
+
+        <button class="menu-item" onclick="showSection('marks')">
+            <span>📝</span>
+            Marks
+        </button>
+
+        <button class="menu-item" onclick="showSection('agents')">
+            <span>🤖</span>
+            AI Agents
+        </button>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard" class="section active-section">
+
+            <div class="page-heading">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Overview of class management activities</p>
+                </div>
+
+                <button class="primary-btn" onclick="runAllAgents()">
+                    🤖 Run All Agents
+                </button>
+            </div>
+
+
+            <!-- STAT CARDS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">👨‍🎓</div>
+
+                    <div>
+                        <p>Total Students</p>
+                        <h2 id="totalStudents">0</h2>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+
+                    <div>
+                        <p>Attendance Verified</p>
+                        <h2 id="attendanceVerified">0</h2>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">₹</div>
+
+                    <div>
+                        <p>Fees Paid</p>
+                        <h2 id="feesPaid">0</h2>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">★</div>
+
+                    <div>
+                        <p>Marks Verified</p>
+                        <h2 id="marksVerified">0</h2>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- AGENT ACTIVITY -->
+
+            <div class="dashboard-grid">
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <h3>Recent Agent Activity</h3>
+                            <p>Latest automated operations</p>
+                        </div>
+                    </div>
+
+                    <div id="activityList" class="activity-list"></div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <h3>System Verification</h3>
+                            <p>Current verification status</p>
+                        </div>
+                    </div>
+
+                    <div class="verification-box">
+
+                        <div class="verification-item">
+                            <span>Attendance Agent</span>
+                            <strong class="online">Online</strong>
+                        </div>
+
+                        <div class="verification-item">
+                            <span>Fee Agent</span>
+                            <strong class="online">Online</strong>
+                        </div>
+
+                        <div class="verification-item">
+                            <span>Marks Agent</span>
+                            <strong class="online">Online</strong>
+                        </div>
+
+                        <div class="verification-item">
+                            <span>Verification Agent</span>
+                            <strong class="online">Online</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STUDENTS ================= -->
+
+        <section id="students" class="section">
+
+            <div class="page-heading">
+
+                <div>
+                    <h1>Students</h1>
+                    <p>Manage individual student information</p>
+                </div>
+
+                <button class="primary-btn" onclick="openStudentModal()">
+                    + Add Student
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-tools">
+
+                    <input
+                        type="text"
+                        id="studentSearch"
+                        placeholder="🔍 Search student..."
+                        onkeyup="searchStudents()"
+                    >
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Class</th>
+                                <th>Attendance</th>
+                                <th>Fees</th>
+                                <th>Marks</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="studentTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ATTENDANCE ================= -->
+
+        <section id="attendance" class="section">
+
+            <div class="page-heading">
+
+                <div>
+                    <h1>Attendance Management</h1>
+                    <p>Post and verify individual student attendance</p>
+                </div>
+
+                <button class="primary-btn" onclick="runAttendanceAgent()">
+                    🤖 Run Attendance Agent
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h3>Today's Attendance</h3>
+                        <p>Attendance posted by Attendance Agent</p>
+                    </div>
+
+                    <span class="date">
+                        22 September 2026
+                    </span>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>ID</th>
+                                <th>Status</th>
+                                <th>Posted By</th>
+                                <th>Verification</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="attendanceTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FEES ================= -->
+
+        <section id="fees" class="section">
+
+            <div class="page-heading">
+
+                <div>
+                    <h1>Fee Management</h1>
+                    <p>Check individual student fee payment status</p>
+                </div>
+
+                <button class="primary-btn" onclick="runFeeAgent()">
+                    🤖 Run Fee Agent
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Student</th>
+                                <th>ID</th>
+                                <th>Total Fee</th>
+                                <th>Paid</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                                <th>Verification</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="feeTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= MARKS ================= -->
+
+        <section id="marks" class="section">
+
+            <div class="page-heading">
+
+                <div>
+                    <h1>Marks Management</h1>
+                    <p>Post and verify individual student marks</p>
+                </div>
+
+                <button class="primary-btn" onclick="runMarksAgent()">
+                    🤖 Run Marks Agent
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Student</th>
+                                <th>ID</th>
+                                <th>Subject</th>
+                                <th>Marks</th>
+                                <th>Posted By</th>
+                                <th>Verification</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="marksTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= AGENTS ================= -->
+
+        <section id="agents" class="section">
+
+            <div class="page-heading">
+
+                <div>
+                    <h1>Multi-Agent System</h1>
+                    <p>AI agents responsible for class management operations</p>
+                </div>
+
+            </div>
+
+
+            <div class="agents-grid">
+
+                <div class="agent-card">
+
+                    <div class="agent-icon">📅</div>
+
+                    <h3>Attendance Agent</h3>
+
+                    <p>
+                        Posts individual student attendance and
+                        sends attendance records for verification.
+                    </p>
+
+                    <span class="agent-status">
+                        ● Active
+                    </span>
+
+                </div>
+
+
+                <div class="agent-card">
+
+                    <div class="agent-icon">💰</div>
+
+                    <h3>Fee Agent</h3>
+
+                    <p>
+                        Checks whether each student has paid
+                        the required academic fees.
+                    </p>
+
+                    <span class="agent-status">
+                        ● Active
+                    </span>
+
+                </div>
+
+
+                <div class="agent-card">
+
+                    <div class="agent-icon">📝</div>
+
+                    <h3>Marks Agent</h3>
+
+                    <p>
+                        Posts individual student marks and
+                        submits them for verification.
+                    </p>
+
+                    <span class="agent-status">
+                        ● Active
+                    </span>
+
+                </div>
+
+
+                <div class="agent-card">
+
+                    <div class="agent-icon">🔐</div>
+
+                    <h3>Verification Agent</h3>
+
+                    <p>
+                        Verifies attendance, fee and marks
+                        records before they become final.
+                    </p>
+
+                    <span class="agent-status">
+                        ● Active
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- WORKFLOW -->
+
+            <div class="card workflow-card">
+
+                <h3>Multi-Agent Workflow</h3>
+
+                <div class="workflow">
+
+                    <div class="workflow-step">
+                        <div class="workflow-number">1</div>
+                        <strong>Input</strong>
+                        <span>Student Data</span>
+                    </div>
+
+                    <div class="workflow-arrow">→</div>
+
+                    <div class="workflow-step">
+                        <div class="workflow-number">2</div>
+                        <strong>Processing</strong>
+                        <span>Specialized Agent</span>
+                    </div>
+
+                    <div class="workflow-arrow">→</div>
+
+                    <div class="workflow-step">
+                        <div class="workflow-number">3</div>
+                        <strong>Verification</strong>
+                        <span>Verification Agent</span>
+                    </div>
+
+                    <div class="workflow-arrow">→</div>
+
+                    <div class="workflow-step">
+                        <div class="workflow-number">4</div>
+                        <strong>Final Record</strong>
+                        <span>Class Database</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= STUDENT MODAL ================= -->
+
+    <div id="studentModal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Add Student</h2>
+
+                <button onclick="closeStudentModal()">×</button>
+            </div>
+
+
+            <form onsubmit="addStudent(event)">
+
+                <label>Student ID</label>
+                <input id="newStudentId" required>
+
+
+                <label>Student Name</label>
+                <input id="newStudentName" required>
+
+
+                <label>Class</label>
+                <input id="newStudentClass" value="B.Tech CSE" required>
+
+
+                <label>Total Fee</label>
+                <input
+                    id="newStudentFee"
+                    type="number"
+                    value="60000"
+                    required
+                >
+
+
+                <div class="modal-buttons">
+
+                    <button
+                        type="button"
+                        class="secondary-btn"
+                        onclick="closeStudentModal()"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        Add Student
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div id="toast" class="toast">
+        Operation completed successfully.
+    </div>
+
+
+    <script src="class.js"></script>
+
+</body>
+</html>
